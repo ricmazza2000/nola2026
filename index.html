@@ -10,136 +10,80 @@
   <meta name="theme-color" content="#0d1f3c">
 
   <title>Peccioli × New Orleans 2026</title>
-
-  <!-- PWA Manifest -->
   <link rel="manifest" href="manifest.json">
-
-  <!-- Icone per iOS (Apple non legge il manifest per le icone) -->
   <link rel="apple-touch-icon" href="icon-192.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png">
-  <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png">
 
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     html, body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #0d1f3c;
-      font-family: 'Inter', sans-serif;
-    }
-
-    /* Schermata di caricamento */
-    #splash {
-      position: fixed;
-      inset: 0;
+      width:100%; height:100%;
       background: linear-gradient(160deg, #0d1f3c 0%, #17305a 60%, #1a3a6b 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 100;
-      transition: opacity 0.5s ease;
+      font-family: -apple-system, 'Inter', sans-serif;
+      display:flex; align-items:center; justify-content:center;
     }
-
-    #splash .logo-wrap {
-      width: 80px;
-      height: 80px;
-      background: rgba(255,255,255,0.08);
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.2rem;
-      font-size: 2.5rem;
+    .splash {
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      text-align:center; padding:2rem;
     }
-
-    #splash h1 {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: white;
-      text-align: center;
-      line-height: 1.2;
-      margin-bottom: 0.4rem;
+    .icon-wrap {
+      width:90px; height:90px;
+      background:rgba(255,255,255,0.08);
+      border-radius:22px;
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:1.4rem;
+      overflow:hidden;
     }
-
-    #splash h1 span { color: #d08c38; }
-
-    #splash p {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 2rem;
+    .icon-wrap img { width:100%; height:100%; object-fit:cover; border-radius:22px; }
+    h1 {
+      font-size:1.5rem; font-weight:800;
+      color:white; line-height:1.2;
+      margin-bottom:0.4rem;
     }
-
+    h1 span { color:#d08c38; }
+    p {
+      font-size:0.85rem;
+      color:rgba(255,255,255,0.45);
+      margin-bottom:2.5rem;
+    }
     .spinner {
-      width: 32px;
-      height: 32px;
-      border: 3px solid rgba(255,255,255,0.15);
-      border-top-color: #d08c38;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
+      width:34px; height:34px;
+      border:3px solid rgba(255,255,255,0.12);
+      border-top-color:#d08c38;
+      border-radius:50%;
+      animation:spin 0.8s linear infinite;
     }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    #splash.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    /* L'iframe che contiene l'app Streamlit */
-    #app-frame {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .msg {
+      margin-top:1rem;
+      font-size:0.78rem;
+      color:rgba(255,255,255,0.3);
     }
   </style>
 </head>
 <body>
-
-  <!-- Splash screen mostrata durante il caricamento -->
-  <div id="splash">
-    <div class="logo-wrap">🎷</div>
+  <div class="splash">
+    <div class="icon-wrap">
+      <img src="icon-192.png" alt="NOLA 2026">
+    </div>
     <h1>Peccioli × <span>New Orleans</span><br>2026</h1>
     <p>Portale ragazzi · Comune di Peccioli</p>
     <div class="spinner"></div>
+    <div class="msg">Apertura in corso...</div>
   </div>
 
-  <!-- App Streamlit in iframe a schermo intero -->
-  <!-- ⚠️ SOSTITUISCI L'URL CON IL TUO LINK STREAMLIT -->
-  <iframe
-    id="app-frame"
-    src="https://peccioli-new-orleans.streamlit.app"
-    allow="fullscreen"
-    loading="eager"
-  ></iframe>
-
   <script>
-    // Registra il service worker per la PWA
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').catch(console.error);
+      navigator.serviceWorker.register('./sw.js').catch(function(){});
     }
 
-    // Nascondi lo splash quando l'iframe è caricato
-    var frame = document.getElementById('app-frame');
-    var splash = document.getElementById('splash');
+    // Sostituisci con il tuo link Streamlit
+    var APP_URL = "https://TUO-NOME-APP.streamlit.app";
 
-    frame.addEventListener('load', function() {
-      setTimeout(function() {
-        splash.classList.add('hidden');
-        setTimeout(function() {
-          splash.style.display = 'none';
-        }, 500);
-      }, 800);
-    });
-
-    // Fallback: nascondi lo splash dopo 8 secondi comunque
+    // Redirect dopo 1.5 secondi (abbastanza per vedere la splash)
     setTimeout(function() {
-      splash.classList.add('hidden');
-    }, 8000);
+      window.location.href = APP_URL;
+    }, 1500);
   </script>
-
 </body>
 </html>
