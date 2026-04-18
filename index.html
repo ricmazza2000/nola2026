@@ -24,37 +24,43 @@
       overflow: hidden;
     }
 
-    /* Sfondo con immagine ponte */
     .bg {
       position: fixed;
       inset: 0;
-      background: linear-gradient(160deg, #0a1628 0%, #0d1f3c 40%, #12285a 100%);
+      background: linear-gradient(160deg, #0a1628 0%, #0d1f3c 50%, #12285a 100%);
       z-index: 0;
     }
 
+    /* Immagine ponte al centro-alto, non in fondo */
     .bg-image {
       position: fixed;
-      bottom: 0;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      width: 130%;
-      max-width: 900px;
-      opacity: 0.18;
+      transform: translate(-50%, -55%);
+      width: 120%;
+      max-width: 800px;
+      opacity: 0.15;
       pointer-events: none;
       z-index: 1;
-      filter: invert(1) brightness(1.2);
+      filter: invert(1) brightness(1.3);
     }
 
-    /* Gradiente che sfuma il basso */
-    .bg-fade {
+    /* Gradiente che sfuma sopra e sotto l'immagine */
+    .bg-fade-top {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 30%;
+      background: linear-gradient(to bottom, #0a1628, transparent);
+      z-index: 2;
+    }
+    .bg-fade-bottom {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      height: 35%;
+      height: 40%;
       background: linear-gradient(to top, #0d1f3c, transparent);
       z-index: 2;
     }
 
-    /* Contenuto */
     .content {
       position: relative;
       z-index: 3;
@@ -63,62 +69,60 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 3rem 2rem 3.5rem;
+      padding: 3.5rem 2rem 3.5rem;
       text-align: center;
     }
 
-    /* Top — piccola dicitura */
     .top-label {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 600;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.35);
+      color: rgba(255,255,255,0.3);
     }
 
-    /* Centro — titolo */
     .middle {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.5rem;
     }
 
     .divider {
-      width: 32px;
+      width: 28px;
       height: 2px;
       background: #d08c38;
       border-radius: 2px;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.5rem;
     }
 
     h1 {
       font-family: 'Playfair Display', Georgia, serif;
-      font-size: clamp(2rem, 8vw, 3rem);
+      font-size: clamp(2.2rem, 9vw, 3.2rem);
       font-weight: 800;
       color: white;
-      line-height: 1.1;
+      line-height: 1.05;
       letter-spacing: -0.02em;
     }
 
     h1 span { color: #d08c38; }
 
     .subtitle {
-      font-size: 0.82rem;
-      color: rgba(255,255,255,0.45);
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.35);
       font-weight: 400;
-      letter-spacing: 0.05em;
-      margin-top: 0.2rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
     }
 
-    /* Basso — bottone */
     .bottom {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      gap: 0.9rem;
       width: 100%;
-      max-width: 320px;
+      max-width: 300px;
     }
 
     .btn-enter {
@@ -128,12 +132,12 @@
       background: #d08c38;
       color: white;
       font-family: 'Inter', sans-serif;
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       text-decoration: none;
-      border-radius: 16px;
-      box-shadow: 0 8px 32px rgba(208, 140, 56, 0.3);
+      border-radius: 14px;
+      box-shadow: 0 8px 28px rgba(208, 140, 56, 0.28);
       transition: opacity 0.15s, transform 0.15s;
     }
 
@@ -143,9 +147,10 @@
     }
 
     .note {
-      font-size: 0.7rem;
-      color: rgba(255,255,255,0.2);
-      letter-spacing: 0.05em;
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.18);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
   </style>
 </head>
@@ -153,23 +158,24 @@
 
   <div class="bg"></div>
   <img class="bg-image" src="piazza_nola_ponte.png" alt="" aria-hidden="true">
-  <div class="bg-fade"></div>
+  <div class="bg-fade-top"></div>
+  <div class="bg-fade-bottom"></div>
 
   <div class="content">
 
-    <div class="top-label">Comune di Peccioli</div>
+    <div class="top-label">Comune di Peccioli &nbsp;·&nbsp; 2026</div>
 
     <div class="middle">
       <div class="divider"></div>
       <h1>Peccioli &times;<br><span>New Orleans</span></h1>
-      <p class="subtitle">Il portale del viaggio &nbsp;·&nbsp; 2026</p>
+      <p class="subtitle">Il portale del viaggio</p>
     </div>
 
     <div class="bottom">
       <a class="btn-enter" href="https://new-orleans.onrender.com">
         Entra nel portale →
       </a>
-      <p class="note">80 ragazzi · 21–28 settembre 2026</p>
+      <p class="note">80 ragazzi &nbsp;·&nbsp; 21–28 settembre 2026</p>
     </div>
 
   </div>
