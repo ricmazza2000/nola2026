@@ -11,93 +11,167 @@
   <title>Peccioli × New Orleans 2026</title>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
+
     html, body {
       width:100%; height:100%; min-height:100vh;
-      background: linear-gradient(160deg, #0d1f3c 0%, #17305a 60%, #1a3a6b 100%);
-      font-family: -apple-system, 'Inter', sans-serif;
-      display:flex; align-items:center; justify-content:center;
+      font-family: 'Inter', sans-serif;
+      background: #0d1f3c;
+      overflow: hidden;
     }
-    .splash {
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      text-align:center; padding:2rem;
-      max-width:340px;
+
+    /* Sfondo con immagine ponte */
+    .bg {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(160deg, #0a1628 0%, #0d1f3c 40%, #12285a 100%);
+      z-index: 0;
     }
-    .icon-wrap {
-      width:100px; height:100px;
-      border-radius:24px; overflow:hidden;
-      margin-bottom:1.6rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+
+    .bg-image {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130%;
+      max-width: 900px;
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: 1;
+      filter: invert(1) brightness(1.2);
     }
-    .icon-wrap img { width:100%; height:100%; object-fit:cover; }
-    h1 {
-      font-size:1.6rem; font-weight:800;
-      color:white; line-height:1.2;
-      margin-bottom:0.5rem;
+
+    /* Gradiente che sfuma il basso */
+    .bg-fade {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 35%;
+      background: linear-gradient(to top, #0d1f3c, transparent);
+      z-index: 2;
     }
-    h1 span { color:#d08c38; }
-    .sub {
-      font-size:0.85rem;
-      color:rgba(255,255,255,0.45);
-      margin-bottom:0.5rem;
+
+    /* Contenuto */
+    .content {
+      position: relative;
+      z-index: 3;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 3rem 2rem 3.5rem;
+      text-align: center;
     }
+
+    /* Top — piccola dicitura */
+    .top-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+
+    /* Centro — titolo */
+    .middle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
     .divider {
-      width:40px; height:2px;
-      background:#d08c38;
-      border-radius:2px;
-      margin:1.2rem auto 1.4rem;
-      opacity:0.6;
+      width: 32px;
+      height: 2px;
+      background: #d08c38;
+      border-radius: 2px;
+      margin-bottom: 0.4rem;
     }
-    .desc {
-      font-size:0.9rem;
-      color:rgba(255,255,255,0.6);
-      line-height:1.6;
-      margin-bottom:2rem;
+
+    h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 8vw, 3rem);
+      font-weight: 800;
+      color: white;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
     }
-    .btn {
-      display:block;
-      width:100%;
-      padding:1rem 1.5rem;
-      background:#d08c38;
-      color:white;
-      font-size:1rem;
-      font-weight:700;
-      border:none;
-      border-radius:16px;
-      cursor:pointer;
-      text-decoration:none;
-      box-shadow: 0 6px 20px rgba(208,140,56,0.35);
-      transition: transform 0.1s, box-shadow 0.1s;
+
+    h1 span { color: #d08c38; }
+
+    .subtitle {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.45);
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      margin-top: 0.2rem;
     }
-    .btn:active {
-      transform:scale(0.97);
-      box-shadow: 0 3px 10px rgba(208,140,56,0.25);
+
+    /* Basso — bottone */
+    .bottom {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      width: 100%;
+      max-width: 320px;
     }
+
+    .btn-enter {
+      display: block;
+      width: 100%;
+      padding: 1rem 1.5rem;
+      background: #d08c38;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(208, 140, 56, 0.3);
+      transition: opacity 0.15s, transform 0.15s;
+    }
+
+    .btn-enter:active {
+      opacity: 0.85;
+      transform: scale(0.98);
+    }
+
     .note {
-      margin-top:1.2rem;
-      font-size:0.75rem;
-      color:rgba(255,255,255,0.25);
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.05em;
     }
   </style>
 </head>
 <body>
-  <div class="splash">
-    <div class="icon-wrap">
-      <img src="icon-192.png" alt="NOLA 2026">
+
+  <div class="bg"></div>
+  <img class="bg-image" src="piazza_nola_ponte.png" alt="" aria-hidden="true">
+  <div class="bg-fade"></div>
+
+  <div class="content">
+
+    <div class="top-label">Comune di Peccioli</div>
+
+    <div class="middle">
+      <div class="divider"></div>
+      <h1>Peccioli &times;<br><span>New Orleans</span></h1>
+      <p class="subtitle">Il portale del viaggio &nbsp;·&nbsp; 2026</p>
     </div>
-    <h1>Peccioli × <span>New Orleans</span> 2026</h1>
-    <div class="sub">Portale ragazzi · Comune di Peccioli</div>
-    <div class="divider"></div>
-    <div class="desc">
-      Briefing, approfondimenti, mappa interattiva e temi del viaggio.<br>
-      Tutto quello che serve per arrivare a New Orleans preparati.
+
+    <div class="bottom">
+      <a class="btn-enter" href="https://new-orleans.onrender.com">
+        Entra nel portale →
+      </a>
+      <p class="note">80 ragazzi · 21–28 settembre 2026</p>
     </div>
-    <a class="btn" href="https://new-orleans.onrender.com">
-      🎷 Entra nel portale
-    </a>
-    <div class="note">21–28 settembre 2026 · New Orleans, Louisiana</div>
+
   </div>
 
   <script>
@@ -105,5 +179,6 @@
       navigator.serviceWorker.register('./sw.js').catch(function(){});
     }
   </script>
+
 </body>
 </html>
