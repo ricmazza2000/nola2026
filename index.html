@@ -31,7 +31,7 @@
       z-index: 0;
     }
 
-    /* Immagine ponte al centro-alto, non in fondo */
+    /* Immagine ponte al centro-alto, no filtri perché già trasparente */
     .bg-image {
       position: fixed;
       top: 50%;
@@ -39,10 +39,9 @@
       transform: translate(-50%, -55%);
       width: 120%;
       max-width: 800px;
-      opacity: 0.15;
+      opacity: 0.22;
       pointer-events: none;
       z-index: 1;
-      filter: invert(1) brightness(1.3);
     }
 
     /* Gradiente che sfuma sopra e sotto l'immagine */
