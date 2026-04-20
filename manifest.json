@@ -1,11 +1,11 @@
 {
-  "name": "Peccioli × New Orleans 2026",
-  "short_name": "NOLA 2026",
-  "description": "Portale ragazzi per il viaggio a New Orleans",
+  "name": "Peccioli Eyes to New Orleans",
+  "short_name": "Peccioli Eyes",
+  "description": "Il portale del viaggio — 80 ragazzi a New Orleans, settembre 2026",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#0d1f3c",
-  "theme_color": "#0d1f3c",
+  "background_color": "#130089",
+  "theme_color": "#130089",
   "orientation": "portrait-primary",
   "icons": [
     {
