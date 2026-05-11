@@ -2,23 +2,93 @@
   "name": "Peccioli Eyes to New Orleans",
   "short_name": "Peccioli Eyes",
   "description": "Il portale del viaggio — 80 ragazzi a New Orleans, settembre 2026",
-  "start_url": ".",
+  "lang": "it",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "background_color": "#130089",
   "theme_color": "#130089",
-  "orientation": "portrait-primary",
+  "categories": ["travel", "education", "lifestyle"],
+  "prefer_related_applications": false,
   "icons": [
+    {
+      "src": "icon-48.png",
+      "sizes": "48x48",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    },
     {
       "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mappa New Orleans",
+      "short_name": "Mappa",
+      "description": "Vai direttamente alla mappa",
+      "url": "./?goto=mappa",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Programma viaggio",
+      "short_name": "Programma",
+      "description": "Vai al programma giorno per giorno",
+      "url": "./?goto=programma",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Briefing",
+      "short_name": "Briefing",
+      "description": "Incontri propedeutici",
+      "url": "./?goto=briefing",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     }
   ]
 }
