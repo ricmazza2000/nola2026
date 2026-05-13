@@ -11,19 +11,16 @@
   <meta name="format-detection" content="telephone=no">
   <title>Peccioli Eyes to New Orleans</title>
 
-  <!-- Manifest e icone -->
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
   
-  <!-- Apple touch icons in tutte le dimensioni -->
   <link rel="apple-touch-icon" href="apple-touch-icon-180.png">
   <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180.png">
   <link rel="apple-touch-icon" sizes="167x167" href="apple-touch-icon-167.png">
   <link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152.png">
   <link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120.png">
   
-  <!-- Apple splash screens per ogni iPhone -->
   <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash-1290x2796.png">
   <link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash-1284x2778.png">
   <link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="splash-1179x2556.png">
@@ -34,75 +31,53 @@
   <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash-750x1334.png">
   <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="splash-640x1136.png">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Lobster+Two:ital,wght@1,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
 
     html, body {
-      width: 100%;
-      height: 100%;
-      height: 100vh;
-      height: 100dvh;
+      width: 100%; height: 100%; height: 100vh; height: 100dvh;
       overflow: hidden;
       background: #130089;
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      /* Safe area iOS */
       padding-top: env(safe-area-inset-top);
       padding-bottom: env(safe-area-inset-bottom);
       box-sizing: border-box;
     }
 
-    /* Mini splash di apertura (visibile solo nei primi 1-2 secondi mentre carica l'iframe) */
+    /* ============ SPLASH ============ */
     #splash {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: linear-gradient(165deg, #0a0052 0%, #130089 55%, #1a0fb8 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       z-index: 9999;
       transition: opacity 0.5s ease-out;
     }
-    #splash.hide {
-      opacity: 0;
-      pointer-events: none;
-    }
-    #splash img {
-      width: 130px;
-      height: auto;
-      animation: pulse 1.4s ease-in-out infinite;
-    }
+    #splash.hide { opacity: 0; pointer-events: none; }
+    #splash img { width: 130px; height: auto; animation: pulse 1.4s ease-in-out infinite; }
     #splash .divider {
-      width: 40px;
-      height: 3px;
-      background: #FFDE59;
-      border-radius: 3px;
-      margin: 1.2rem 0 0.8rem;
-      opacity: 0.8;
+      width: 40px; height: 3px; background: #FFDE59;
+      border-radius: 3px; margin: 1.2rem 0 0.8rem; opacity: 0.8;
     }
     #splash .label {
-      color: rgba(255, 222, 89, 0.85);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
+      color: rgba(255, 222, 89, 0.85); font-size: 0.7rem;
+      font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase;
     }
     @keyframes pulse {
       0%, 100% { opacity: 0.85; transform: scale(1); }
       50% { opacity: 1; transform: scale(1.04); }
     }
 
-    /* Iframe a tutto schermo */
+    /* ============ IFRAME ============ */
     #portal-frame {
       position: fixed;
       top: env(safe-area-inset-top);
-      left: 0;
-      right: 0;
+      left: 0; right: 0;
       bottom: env(safe-area-inset-bottom);
       width: 100%;
       height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
@@ -112,38 +87,258 @@
       display: block;
     }
 
-    /* Stato offline */
+    /* ============ MINI-GUIDA ============ */
+    #install-guide {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(165deg, #0a0052 0%, #130089 55%, #1a0fb8 100%);
+      z-index: 10000;
+      display: none;
+      flex-direction: column;
+      overflow-y: auto;
+      padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+    }
+    #install-guide.show { display: flex; }
+
+    .guide-inner {
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-height: 100%;
+    }
+
+    .guide-logo { width: 90px; height: auto; margin-bottom: 1rem; }
+
+    .guide-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 800;
+      color: white;
+      font-size: clamp(1.8rem, 7vw, 2.4rem);
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+    }
+    .guide-script {
+      font-family: 'Lobster Two', cursive;
+      font-style: italic;
+      font-weight: 700;
+      color: #FFDE59;
+      font-size: clamp(1.2rem, 4.5vw, 1.7rem);
+      margin-top: 0.3rem;
+      line-height: 1;
+    }
+    .guide-pill {
+      display: inline-block;
+      margin-top: 0.9rem;
+      padding: 0.3rem 0.85rem;
+      background: rgba(255,222,89,0.15);
+      border: 1px solid rgba(255,222,89,0.4);
+      border-radius: 999px;
+      color: #FFDE59;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .guide-section-title {
+      color: white;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 2.5rem 0 0.4rem;
+    }
+    .guide-section-sub {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.78rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .steps {
+      width: 100%;
+      max-width: 380px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 18px;
+      padding: 1.3rem 1.2rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    .step:last-child { margin-bottom: 0; }
+    .step-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #FFDE59;
+      color: #130089;
+      font-weight: 800;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step-text {
+      color: white;
+      font-size: 0.92rem;
+      line-height: 1.4;
+      padding-top: 0.15rem;
+    }
+    .step-text .icon {
+      display: inline-block;
+      vertical-align: middle;
+      font-size: 1.1em;
+      margin: 0 0.15rem;
+    }
+    .step-text b {
+      color: #FFDE59;
+      font-weight: 700;
+    }
+
+    .system-toggle {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1.4rem 0 0.6rem;
+      background: rgba(0,0,0,0.2);
+      border-radius: 999px;
+      padding: 0.3rem;
+    }
+    .system-toggle button {
+      flex: 1;
+      padding: 0.55rem 1rem;
+      border: 0;
+      background: transparent;
+      color: rgba(255,255,255,0.65);
+      font-weight: 600;
+      font-size: 0.85rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .system-toggle button.active {
+      background: #FFDE59;
+      color: #130089;
+    }
+
+    .skip-btn {
+      margin-top: 1.8rem;
+      background: transparent;
+      color: rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .skip-btn:active {
+      background: rgba(255,255,255,0.1);
+    }
+
+    .footer-note {
+      margin-top: 1.5rem;
+      font-size: 0.7rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.05em;
+    }
+
+    /* ============ BANNER OFFLINE ============ */
     #offline-banner {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       background: #FFDE59;
       color: #130089;
       padding: 0.7rem 1rem calc(0.7rem + env(safe-area-inset-bottom));
       text-align: center;
       font-size: 0.85rem;
       font-weight: 700;
-      z-index: 10000;
+      z-index: 10001;
       transform: translateY(100%);
       transition: transform 0.3s ease-out;
       box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
     }
-    #offline-banner.show {
-      transform: translateY(0);
-    }
+    #offline-banner.show { transform: translateY(0); }
   </style>
 </head>
 <body>
 
-  <!-- Splash overlay (sparisce dopo onload dell'iframe) -->
+  <!-- Splash overlay -->
   <div id="splash">
     <img src="peccioli_eyes_logo_white.png" alt="Peccioli Eyes">
     <div class="divider"></div>
     <div class="label">to New Orleans · 2026</div>
   </div>
 
-  <!-- Iframe con il portale Streamlit -->
+  <!-- Mini-guida installazione (visibile solo in browser mobile, prima volta) -->
+  <div id="install-guide">
+    <div class="guide-inner">
+      <img class="guide-logo" src="peccioli_eyes_logo_white.png" alt="Peccioli Eyes">
+      <div class="guide-title">Peccioli Eyes</div>
+      <div class="guide-script">to New Orleans</div>
+      <div class="guide-pill">2026</div>
+
+      <div class="guide-section-title">Installa l'app</div>
+      <div class="guide-section-sub">Aggiungila alla home del telefono per accederci più velocemente</div>
+
+      <div class="system-toggle">
+        <button id="btn-ios" class="active">📱 iPhone</button>
+        <button id="btn-android">🤖 Android</button>
+      </div>
+
+      <!-- iOS -->
+      <div class="steps" id="steps-ios">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">Tocca il pulsante <b>Condividi</b> <span class="icon">⬆</span> in basso al centro</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">Scorri verso il basso e tocca <b>"Aggiungi a Home"</b> <span class="icon">➕</span></div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">Tocca <b>"Aggiungi"</b> in alto a destra. L'app comparirà sulla schermata home</div>
+        </div>
+      </div>
+
+      <!-- Android -->
+      <div class="steps" id="steps-android" style="display:none;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">Tocca i <b>tre puntini</b> <span class="icon">⋮</span> in alto a destra</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text">Tocca <b>"Installa app"</b> oppure <b>"Aggiungi a schermata Home"</b></div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text">Conferma toccando <b>"Installa"</b>. L'app comparirà sulla home</div>
+        </div>
+      </div>
+
+      <button class="skip-btn" id="skip-btn">Continua nel browser →</button>
+
+      <div class="footer-note">Comune di Peccioli · 80 ragazzi · 21-28 settembre 2026</div>
+    </div>
+  </div>
+
+  <!-- Iframe principale del portale -->
   <iframe 
     id="portal-frame"
     src="https://new-orleans.onrender.com"
@@ -156,29 +351,91 @@
   <div id="offline-banner">⚠ Sei offline · Alcune funzioni potrebbero non funzionare</div>
 
   <script>
-    // Splash: nascondi appena l'iframe è caricato (massimo 4 secondi di garanzia)
     const splash = document.getElementById('splash');
     const iframe = document.getElementById('portal-frame');
-    
+    const guide = document.getElementById('install-guide');
+    const stepsIos = document.getElementById('steps-ios');
+    const stepsAndroid = document.getElementById('steps-android');
+    const btnIos = document.getElementById('btn-ios');
+    const btnAndroid = document.getElementById('btn-android');
+    const skipBtn = document.getElementById('skip-btn');
+
+    function isInStandaloneMode() {
+      return (window.matchMedia('(display-mode: standalone)').matches) ||
+             (window.navigator.standalone) ||
+             document.referrer.includes('android-app://');
+    }
+
+    function isMobile() {
+      return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    function isIOS() {
+      return /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    function init() {
+      const hasSeenGuide = localStorage.getItem('peccioli_seen_guide') === 'yes';
+      
+      if (isInStandaloneMode()) {
+        hideSplash();
+      } else if (isMobile() && !hasSeenGuide) {
+        splash.style.display = 'none';
+        guide.classList.add('show');
+        if (isIOS()) {
+          showIos();
+        } else {
+          showAndroid();
+        }
+      } else {
+        hideSplash();
+      }
+    }
+
     function hideSplash() {
       splash.classList.add('hide');
       setTimeout(() => splash.style.display = 'none', 600);
     }
-    
-    iframe.addEventListener('load', () => {
-      // Aspetta un attimo extra per far stabilizzare l'app dentro
-      setTimeout(hideSplash, 800);
-    });
-    
-    // Fallback: nascondi splash dopo max 4 secondi
-    setTimeout(hideSplash, 4000);
 
-    // Service Worker
+    function showIos() {
+      stepsIos.style.display = 'block';
+      stepsAndroid.style.display = 'none';
+      btnIos.classList.add('active');
+      btnAndroid.classList.remove('active');
+    }
+
+    function showAndroid() {
+      stepsIos.style.display = 'none';
+      stepsAndroid.style.display = 'block';
+      btnAndroid.classList.add('active');
+      btnIos.classList.remove('active');
+    }
+
+    btnIos.addEventListener('click', showIos);
+    btnAndroid.addEventListener('click', showAndroid);
+
+    skipBtn.addEventListener('click', () => {
+      localStorage.setItem('peccioli_seen_guide', 'yes');
+      guide.classList.remove('show');
+      splash.style.display = 'flex';
+      splash.classList.remove('hide');
+    });
+
+    iframe.addEventListener('load', () => {
+      if (!guide.classList.contains('show')) {
+        setTimeout(hideSplash, 800);
+      }
+    });
+    setTimeout(() => {
+      if (!guide.classList.contains('show')) {
+        hideSplash();
+      }
+    }, 4000);
+
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js').catch(() => {});
     }
 
-    // Banner offline
     const offlineBanner = document.getElementById('offline-banner');
     function updateOnlineStatus() {
       if (navigator.onLine) {
@@ -191,28 +448,23 @@
     window.addEventListener('offline', updateOnlineStatus);
     updateOnlineStatus();
 
-    // Gestisci shortcuts del manifest (es. ?goto=mappa)
     const urlParams = new URLSearchParams(window.location.search);
     const goto = urlParams.get('goto');
     if (goto) {
       iframe.addEventListener('load', () => {
-        // Aggiunge l'anchor al portale per scrollare alla sezione
-        try {
-          iframe.contentWindow.location.hash = '#' + goto;
-        } catch(e) {}
+        try { iframe.contentWindow.location.hash = '#' + goto; } catch(e) {}
       }, { once: true });
     }
 
-    // Previeni zoom pinch su iOS dentro l'app
     document.addEventListener('gesturestart', (e) => e.preventDefault());
     document.addEventListener('gesturechange', (e) => e.preventDefault());
-    
-    // Disabilita context menu (long-press) per look più nativo
     document.addEventListener('contextmenu', (e) => {
       if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
         e.preventDefault();
       }
     });
+
+    init();
   </script>
 
 </body>
