@@ -91,4 +91,23 @@
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     }
   ]
+}      "description": "Vai direttamente alla mappa",
+      "url": "./?goto=mappa",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Programma viaggio",
+      "short_name": "Programma",
+      "description": "Vai al programma giorno per giorno",
+      "url": "./?goto=programma",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Briefing",
+      "short_name": "Briefing",
+      "description": "Incontri propedeutici",
+      "url": "./?goto=briefing",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ]
 }
