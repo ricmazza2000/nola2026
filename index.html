@@ -378,8 +378,10 @@
       const hasSeenGuide = localStorage.getItem('peccioli_seen_guide') === 'yes';
       
       if (isInStandaloneMode()) {
-        hideSplash();
+        // App installata: mostra splash per ~1.5s mentre carica l'iframe
+        // (lo splash è già visibile di default; lo nasconde iframe.onload o timeout)
       } else if (isMobile() && !hasSeenGuide) {
+        // Prima visita da mobile: nascondi splash e mostra mini-guida
         splash.style.display = 'none';
         guide.classList.add('show');
         if (isIOS()) {
@@ -388,7 +390,8 @@
           showAndroid();
         }
       } else {
-        hideSplash();
+        // Desktop o già visto la guida: mostra splash mentre carica
+        // (lo splash è già visibile, sparisce a iframe load)
       }
     }
 
@@ -421,16 +424,26 @@
       splash.classList.remove('hide');
     });
 
+    // Tempo minimo splash per dare il "wow"
+    const splashStartTime = Date.now();
+    const SPLASH_MIN_DURATION = 1800; // almeno 1.8s
+
+    function hideSplashWithMinDuration() {
+      const elapsed = Date.now() - splashStartTime;
+      const remaining = Math.max(0, SPLASH_MIN_DURATION - elapsed);
+      setTimeout(hideSplash, remaining);
+    }
+
     iframe.addEventListener('load', () => {
       if (!guide.classList.contains('show')) {
-        setTimeout(hideSplash, 800);
+        hideSplashWithMinDuration();
       }
     });
     setTimeout(() => {
       if (!guide.classList.contains('show')) {
         hideSplash();
       }
-    }, 4000);
+    }, 5000);
 
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./sw.js').catch(() => {});
