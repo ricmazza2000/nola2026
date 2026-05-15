@@ -1,7 +1,7 @@
 {
   "name": "Peccioli Eyes to New Orleans",
   "short_name": "Peccioli Eyes",
-  "description": "Il portale del viaggio — 80 ragazzi a New Orleans, settembre 2026",
+  "description": "Il portale del viaggio — Peccioli verso New Orleans, settembre 2026",
   "lang": "it",
   "dir": "ltr",
   "start_url": "./",
@@ -73,25 +73,6 @@
       "name": "Mappa New Orleans",
       "short_name": "Mappa",
       "description": "Vai direttamente alla mappa",
-      "url": "./?goto=mappa",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Programma viaggio",
-      "short_name": "Programma",
-      "description": "Vai al programma giorno per giorno",
-      "url": "./?goto=programma",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
-    },
-    {
-      "name": "Briefing",
-      "short_name": "Briefing",
-      "description": "Incontri propedeutici",
-      "url": "./?goto=briefing",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
-    }
-  ]
-}      "description": "Vai direttamente alla mappa",
       "url": "./?goto=mappa",
       "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     },
